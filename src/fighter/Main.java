@@ -1,4 +1,4 @@
-package sample;
+package fighter;
 
 import javafx.animation.PauseTransition;
 import javafx.application.Application;
@@ -9,6 +9,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.media.AudioClip;
@@ -41,9 +42,11 @@ public class Main extends Application implements EventHandler<ActionEvent> {
     private int fighterOne = 0;
     private int fighterTwo = 1;
     private int match = 1;
+    private ProgressBar hpOne;
     private int matchSeries = 1;
     private int initialHealthOne, initialHealthTwo;
     private AudioClip sound = new AudioClip(new File("punchSound.wav").toURI().toString());
+    private AudioClip soundTrack = new AudioClip(new File("soundtrack.mp3").toURI().toString());
 
     private final String BUTTON_STYLE = "-fx-background-color: \n" +
             "        #000000,\n" +
@@ -67,13 +70,18 @@ public class Main extends Application implements EventHandler<ActionEvent> {
     @Override
     public void start(Stage stage) throws Exception{
         window = stage;
-
-
+        soundTrack.setVolume(0.5);
+        soundTrack.play();
 
         stage.setTitle("The Fighter");
         FileInputStream icon = new FileInputStream("FighterImgs\\icon.png");
         stage.getIcons().add(new Image(icon));
         stage.setResizable(false);
+
+        initialHealthOne = 50;
+        initialHealthOne = initialHealthTwo /100;
+        hpOne = new ProgressBar(0.5);
+        hpOne.setStyle("-fx-accent: #ff0000;");
 
         buttonBack = new Button("Back");
         buttonBack.setOnAction(this);
@@ -159,7 +167,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 
 
 
-        HBox hboxStart = new HBox(buttonFight,buttonBracket);
+        HBox hboxStart = new HBox(buttonFight,buttonBracket,hpOne);
         HBox hboxFight = new HBox(buttonPunch);
         hboxBracket = new HBox(firstBracket,secondBracket,thirdBracket,winnerBracket);
         HBox hboxFightTwo = new HBox(fighterOneName,hpFighterOne,buttonPunchTwo,fighterTwoName,hpFighterTwo);
@@ -204,6 +212,9 @@ public class Main extends Application implements EventHandler<ActionEvent> {
         HBox.setMargin(thirdBracket, new Insets(-10,10,0,140));
         HBox.setMargin(winnerBracket, new Insets(-6,10,0,140));
         HBox.setMargin(buttonBack, new Insets(650,10,0,360));
+
+        hpOne.setMinSize(250,50);
+        hpOne.setMaxSize(250,50);
 
         fighterOneName.setMinSize(200,300);
         fighterOneName.setMaxSize(200,300);
@@ -408,6 +419,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
             buttonPunchThree.setOnAction(this);
             window.setScene(fightScene);
             getFighters();
+
             fighterOneName.setText(one.getName()+ " " );
             fighterTwoName.setText(two.getName()+ " ");
             hpFighterOne.setText("HP: " + one.getHealth());
@@ -425,14 +437,14 @@ public class Main extends Application implements EventHandler<ActionEvent> {
         Match match = Match.getInstance(Roster.getInstance());
         Roster roster = Roster.getInstance();
 
-        Fighter one = FighterFactory.getFighter("HHP","Pontus","Enkel Vinst!");
-        Fighter two = FighterFactory.getFighter("HPF","Conny","Jag gillar Öl!");
-        Fighter three = FighterFactory.getFighter("HSF","Åke","Jag är stark!");
-        Fighter four = FighterFactory.getFighter("HPF","Berra","För lätt");
-        Fighter five = FighterFactory.getFighter("HHP","Albert","Klen instats");
-        Fighter six = FighterFactory.getFighter("HHP","Klasse","Jag är för bra");
-        Fighter seven = FighterFactory.getFighter("HSF","Conrad","Ingen gillar dig");
-        Fighter eight = FighterFactory.getFighter("HSF","Kenta","Vart är motståndet?");
+        Fighter one = FighterFactory.getInstance().getFighter("HHP","Pontus","Enkel Vinst!");
+        Fighter two = FighterFactory.getInstance().getFighter("HPF","Conny","Jag gillar Öl!");
+        Fighter three = FighterFactory.getInstance().getFighter("HSF","Åke","Jag är stark!");
+        Fighter four = FighterFactory.getInstance().getFighter("HPF","Berra","För lätt");
+        Fighter five = FighterFactory.getInstance().getFighter("HHP","Albert","Klen instats");
+        Fighter six = FighterFactory.getInstance().getFighter("HHP","Klasse","Jag är för bra");
+        Fighter seven = FighterFactory.getInstance().getFighter("HSF","Conrad","Ingen gillar dig");
+        Fighter eight = FighterFactory.getInstance().getFighter("HSF","Kenta","Vart är motståndet?");
 
         launch(args);
     }

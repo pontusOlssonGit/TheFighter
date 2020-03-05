@@ -1,4 +1,4 @@
-package sample;
+package fighter;
 
 public class Controller {
 }

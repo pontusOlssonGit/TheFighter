@@ -1,8 +1,6 @@
-package sample;
+package fighter;
 
-import java.util.Random;
-
-public class HighSpeedFighter extends Fighter {
+public class HighPowerFighter extends Fighter {
 
     private String name;
     private int health;
@@ -10,14 +8,13 @@ public class HighSpeedFighter extends Fighter {
     private int power;
     private String winningMotto;
 
-    public HighSpeedFighter(String name, String winningMotto) {
+    public HighPowerFighter(String name, String winningMotto) {
         this.name = name;
         this.health = 100;
-        this.speed = (int)(Math.random()*200)+100;
-        this.power = 100;
+        this.speed = 100;
+        this.power = (int)(Math.random()*200)+100;
         this.winningMotto = winningMotto;
         super.roster.addFighter(this);
-
     }
 
     @Override
