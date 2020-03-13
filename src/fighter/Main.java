@@ -42,7 +42,6 @@ public class Main extends Application implements EventHandler<ActionEvent> {
     private int fighterOne = 0;
     private int fighterTwo = 1;
     private int match = 1;
-    private ProgressBar hpOne;
     private int matchSeries = 1;
     private int initialHealthOne, initialHealthTwo;
     private AudioClip sound = new AudioClip(new File("punchSound.wav").toURI().toString());
@@ -80,8 +79,6 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 
         initialHealthOne = 50;
         initialHealthOne = initialHealthTwo /100;
-        hpOne = new ProgressBar(0.5);
-        hpOne.setStyle("-fx-accent: #ff0000;");
 
         buttonBack = new Button("Back");
         buttonBack.setOnAction(this);
@@ -167,7 +164,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 
 
 
-        HBox hboxStart = new HBox(buttonFight,buttonBracket,hpOne);
+        HBox hboxStart = new HBox(buttonFight,buttonBracket);
         HBox hboxFight = new HBox(buttonPunch);
         hboxBracket = new HBox(firstBracket,secondBracket,thirdBracket,winnerBracket);
         HBox hboxFightTwo = new HBox(fighterOneName,hpFighterOne,buttonPunchTwo,fighterTwoName,hpFighterTwo);
@@ -213,8 +210,6 @@ public class Main extends Application implements EventHandler<ActionEvent> {
         HBox.setMargin(winnerBracket, new Insets(-6,10,0,140));
         HBox.setMargin(buttonBack, new Insets(650,10,0,360));
 
-        hpOne.setMinSize(250,50);
-        hpOne.setMaxSize(250,50);
 
         fighterOneName.setMinSize(200,300);
         fighterOneName.setMaxSize(200,300);
